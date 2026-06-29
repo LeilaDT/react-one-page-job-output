@@ -8,7 +8,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Get Code
-              uses: actions/checkout@v3
+              uses: actions/checkout@v6
             - name: Set up Node.js(Install dependencies and run tests)
               run: npm ci
             - name: Lint code
@@ -20,7 +20,7 @@ jobs:
         needs: test
         steps:
             - name: Get Code
-              uses: actions/checkout@v3
+              uses: actions/checkout@v6
             - name: Set up Node.js(Install dependencies)
               run: npm ci 
             - name: Build website
