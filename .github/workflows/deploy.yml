@@ -45,8 +45,6 @@ jobs:
             - name: List files in dist directory after downloading artifacts
               run: |
                 echo "=== Current directory ==="
-                ls
-                echo "=== dist (recursive) ==="
-                ls -R dist
+                ls -R .
             - name: Get Code
               run: echo "Deploying website..."
