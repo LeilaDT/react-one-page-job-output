@@ -75,3 +75,6 @@ jobs:
             - name: Display Environment Variables
               run: |
                 echo "VITE_DEPLOY_LABEL: ${{ env.VITE_DEPLOY_LABEL }}"
+            - name: Display Environment Variables
+              run: |
+                echo "VITE_DEPLOY_LABEL: ${{ secrets.SEC1 }}"
