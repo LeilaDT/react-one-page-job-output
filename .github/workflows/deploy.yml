@@ -5,6 +5,7 @@ on:
       - main
 env:
         VITE_DEPLOY_LABEL: github-actions-build
+        SEC1: ${{ secrets.SEC1 }}
 jobs:
     test:
         runs-on: ubuntu-latest
@@ -75,6 +76,6 @@ jobs:
             - name: Display Environment Variables
               run: |
                 echo "VITE_DEPLOY_LABEL: ${{ env.VITE_DEPLOY_LABEL }}"
-            - name: Display Environment Variables
+            - name: Display Repository Variables
               run: |
-                echo "VITE_DEPLOY_LABEL: ${{ secrets.SEC1 }}"
+                echo "SECRET_1: ${{ env.SEC1 }}"
