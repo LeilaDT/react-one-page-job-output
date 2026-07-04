@@ -6,6 +6,7 @@ import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
+  const deployLabel = import.meta.env.VITE_DEPLOY_LABEL ?? 'not-set'
 
   return (
     <>
@@ -17,6 +18,7 @@ function App() {
         </div>
         <div>
           <h1>Get started</h1>
+          <p>Build label: {deployLabel}</p>
           <p>
             Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
           </p>

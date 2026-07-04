@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - main
+env:
+        VITE_DEPLOY_LABEL: github-actions-build
 jobs:
     test:
         runs-on: ubuntu-latest
@@ -70,3 +72,6 @@ jobs:
                 ls -R .
             - name: Get Code
               run: echo "Deploying website..."
+            - name: Display Environment Variables
+              run: |
+                echo "VITE_DEPLOY_LABEL: ${{ env.VITE_DEPLOY_LABEL }}"
