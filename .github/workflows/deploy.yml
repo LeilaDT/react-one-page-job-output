@@ -13,6 +13,7 @@ jobs:
             - name: Get Code
               uses: actions/checkout@v6
             - name: Cache Node.js modules
+              id: cache-node-modules
               uses: actions/cache@v6
               with:
                 path: ~/.npm
@@ -20,12 +21,15 @@ jobs:
                 restore-keys: |
                   ${{ runner.os }}-node-
             - name: Set up Node.js(Install dependencies and run tests)
+              if: steps.cache-node-modules.outputs.cache-hit != 'true'
               run: npm ci
             - name: Lint code
               run: npm run lint
             - name: Test code
+              id: run-tests
               run: npm test
             - name: Upload test results
+              if: failure() && steps.run-tests.outcome == 'failure' 
               uses: actions/upload-artifact@v7
               with:
                 name: test-results
@@ -39,6 +43,7 @@ jobs:
             - name: Get Code
               uses: actions/checkout@v6
             - name: Cache Node.js modules
+              id: cache-node-modules
               uses: actions/cache@v6
               with:
                 path: ~/.npm
@@ -46,6 +51,7 @@ jobs:
                 restore-keys: |
                   ${{ runner.os }}-node-
             - name: Set up Node.js(Install dependencies)
+              if: steps.cache-node-modules.outputs.cache-hit != 'true'
               run: npm ci 
             - name: Build website
               run: npm run build
@@ -84,3 +90,12 @@ jobs:
             - name: Display Repository Variables
               run: |
                 echo "SECRET_1: ${{ env.SEC1 }}"
+    report:
+        needs: deploy
+        if: failure()
+        runs-on: ubuntu-latest
+        steps:
+            - name: Generate Deployment Report
+              run: |
+                echo "Generating deployment report..."
+                echo "Deployment completed successfully."
