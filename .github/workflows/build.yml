@@ -9,7 +9,15 @@ jobs:
     strategy:
       matrix:
         operating-system: [ubuntu-latest, windows-latest, macos-latest]
-        node-version: [18.x, 20.x]
+        node-version: [20.x, 22.x]
+        include:
+          - operating-system: windows-latest
+            node-version: 20.x
+            message: "Windows with Node.js 20.x"
+        exclude:
+          - operating-system: macos-latest
+            node-version: 22.x
+            message: "macOS with Node.js 22.x"
     runs-on: ${{ matrix.operating-system }}
     steps:
       - uses: actions/checkout@v6
