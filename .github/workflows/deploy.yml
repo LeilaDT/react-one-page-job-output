@@ -74,7 +74,7 @@ jobs:
                 echo "=== Current directory ==="
                 ls
             - name: Download build artifacts
-              uses: actions/download-artifact@v8
+              uses: actions/download-artifact@v8        
               with:
                 name: dist-files
             - name: Output script filename
@@ -92,6 +92,11 @@ jobs:
             - name: Display Repository Variables
               run: |
                 echo "SECRET_1: ${{ env.SEC1 }}"
+    deploy-1:
+        needs: build
+        uses: ./.github/workflows/reusable.yml
+        with:
+            artifact-name: dist-files
     report:
         needs: deploy
         if: failure()
