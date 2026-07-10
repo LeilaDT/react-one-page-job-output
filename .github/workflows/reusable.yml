@@ -9,9 +9,14 @@ on:
         secrets:
             SECRET_1:
                 required: true
-                type: string
+        outputs:
+            result:
+                description: 'The result of the job'
+                value: ${{ jobs.deploy.steps.set-result.outputs.step-result }}
 jobs:
     deploy:
+        outputs:
+            result_job: ${{ steps.set-result.outputs.job-result }}
         runs-on: ubuntu-latest
         steps:
             - name: Get Code
@@ -27,3 +32,7 @@ jobs:
                 echo "SECRET_1=${{ secrets.SECRET_1 }}"
             - name: Output Information
               run: echo "Deploying & uploading ..."
+            - name: Set result output
+              id: set-result
+              #run: echo "step-result=dist/assets/main.js" >> $GITHUB_OUTPUT
+              run: echo "::set-output name=step-result::success" 
