@@ -99,6 +99,14 @@ jobs:
             artifact-name: dist-files
         secrets:
             SECRET_1: ${{ secrets.SEC1 }}
+    Print_deploy_1_result:
+        needs: deploy-1
+        runs-on: ubuntu-latest
+        steps:
+            - name: Print deploy-1 result
+              run: |
+                echo "Deploy-1 result: ${{ needs.deploy-1.outputs.result }}"
+
     report:
         needs: deploy
         if: failure()
