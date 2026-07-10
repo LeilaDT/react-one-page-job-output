@@ -97,6 +97,8 @@ jobs:
         uses: ./.github/workflows/reusable.yml
         with:
             artifact-name: dist-files
+        secrets:
+            SECRET_1: ${{ secrets.SEC1 }}
     report:
         needs: deploy
         if: failure()
