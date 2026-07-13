@@ -14,6 +14,8 @@ jobs:
               uses: actions/checkout@v6
             - name: Load and Cache Dependencies
               uses: ./.github/actions/cashed-deps
+              with:
+                caching: true
             - name: Lint code
               run: npm run lint
             - name: Test code
@@ -107,4 +109,3 @@ jobs:
               run: |
                 echo "Generating deployment report..."
                 echo "Deployment completed successfully."
-                
