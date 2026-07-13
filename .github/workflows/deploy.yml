@@ -109,3 +109,16 @@ jobs:
               run: |
                 echo "Generating deployment report..."
                 echo "Deployment completed successfully."
+    information:
+        needs: deploy
+        if: success()
+        runs-on: ubuntu-latest
+        steps:
+            - name: Get Code
+              uses: actions/checkout@v6
+            - name: Run Custom JavaScript Action for Deployment Report 
+              uses: ./.github/actions/deploy-s3-javascript
+            #   with:
+            #     bucket-name: ${{ env.DEPLOY_BUCKET_NAME }}
+            #     region: ${{ env.DEPLOY_REGION }}
+            #     source-dir: dist
